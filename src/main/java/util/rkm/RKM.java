@@ -19,7 +19,7 @@ public class RKM {
     private static int SIZE_OF_MATRIX = 4;
 
     private static double t0 = 0;
-    private static double T = 30;
+    private static double T = 10;
     private static double eps = 0.005;
     private static double tao_0 = 0.005;//step
     private static int P = 5;
@@ -53,7 +53,7 @@ public class RKM {
     }
 
     public void calculateRCM() {
-        double[][] intensive = getMatrixOfIntensive(/*graph*/);// розкоментовуєш graph і воно підставить матрицю інтенсивності графу
+        double[][] intensive = getMatrixOfIntensive(graph);// розкоментовуєш graph і воно підставить матрицю інтенсивності графу
         //закоментовуєш graph і воно підставить одну з матриць 4x4
         SIZE_OF_MATRIX = intensive.length;
         double t = t0;
@@ -82,10 +82,12 @@ public class RKM {
 
             System.out.println("Iteration = " + iter++ + " t = " + t);/*+ " y0 = " + yi[0] + " y1 = " + yi[1] + " y2 = " + yi[2] + " y3 = " + yi[3])*/
         }
+        int sum = 0;
         for (int i = 0; i < yi.length; i++) {
+            sum += yi[i];
             System.out.print("y" + i + " = " + yi[i] + "; ");
         }
-        System.out.println();
+        System.out.println("\n\nSum = " + sum);
     }
 
     private boolean decreaseStep(double[] ri) {
@@ -113,7 +115,7 @@ public class RKM {
         double[] yi = new double[SIZE_OF_MATRIX];
         yi[0] = 1;
         for (int i = 1; i < SIZE_OF_MATRIX; i++) {
-            yi[i] = 0.000000000000000000000001;// тут я для всі y від 1-го до n-го (за виключенням 0-го) присвоюю їм це числдл
+            //yi[i] = 0.000000000000001;// тут я для всі y від 1-го до n-го (за виключенням 0-го) присвоюю їм це числдл
             // Бо там получаються нулі і значення всіх y окрім 0-го рівні 0
         }
         return yi;
@@ -208,7 +210,7 @@ public class RKM {
             Map<Integer, Double> intensity = currentState.getIntensity();
             Set<Integer> keys = intensity.keySet();
             for (Integer k : keys) {
-                matrixOfIntensive[i][k] = intensity.get(k);
+                matrixOfIntensive[k][i] = intensity.get(k);
             }
         }
         return matrixOfIntensive;
