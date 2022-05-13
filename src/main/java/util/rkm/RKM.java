@@ -19,8 +19,8 @@ public class RKM {
     private static int SIZE_OF_MATRIX = 4;
 
     private static double t0 = 0;
-    private static double T = 10;
-    private static double eps = 0.005;
+    private static double T = 1;
+    private static double eps = 0.000005;
     private static double tao_0 = 0.005;//step
     private static int P = 5;
     private static double[] y0i = getZeroYi();
@@ -52,7 +52,7 @@ public class RKM {
         rkm.calculateRCM();
     }
 
-    public void calculateRCM() {
+    public double[] calculateRCM() {
         double[][] intensive = getMatrixOfIntensive(graph);// розкоментовуєш graph і воно підставить матрицю інтенсивності графу
         //закоментовуєш graph і воно підставить одну з матриць 4x4
         SIZE_OF_MATRIX = intensive.length;
@@ -82,12 +82,13 @@ public class RKM {
 
             System.out.println("Iteration = " + iter++ + " t = " + t);/*+ " y0 = " + yi[0] + " y1 = " + yi[1] + " y2 = " + yi[2] + " y3 = " + yi[3])*/
         }
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < yi.length; i++) {
             sum += yi[i];
             System.out.print("y" + i + " = " + yi[i] + "; ");
         }
         System.out.println("\n\nSum = " + sum);
+        return yi;
     }
 
     private boolean decreaseStep(double[] ri) {

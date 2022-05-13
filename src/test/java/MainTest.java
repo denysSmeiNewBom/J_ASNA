@@ -2,7 +2,6 @@ import util.compile.Compiler;
 import util.graph.State;
 import util.compile.impl.CompilerImplV1;
 import util.graph.builder.GraphBuilder;
-import util.graph.builder.test.GraphTest;
 import util.io.ConfigReader;
 import util.parser.impl.GraphBuilderParserImplV1;
 import util.rkm.RKM;
@@ -26,8 +25,14 @@ public class MainTest {
 
         System.out.println(graph);
         RKM rkm = new RKM(graph);
-        rkm.calculateRCM();
-
+        double[] yi = rkm.calculateRCM();
+        double sum = 0;
+        for (int i = 0; i < yi[i]; i++) {//сума пешок хороших станів
+            if (graph.get(i).getVector()[0] >= 10){
+                sum += yi[i];
+            }
+        }
+        System.out.println("сума пешок хороших станів " + sum);
 
         //System.out.println(graphBuilder.getClass());
     }
