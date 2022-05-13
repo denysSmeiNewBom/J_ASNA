@@ -16,7 +16,7 @@ public class GraphTest extends GraphBuilder {
     private double TRap = 1d/30d;
 
     public GraphTest() {
-        super(new int[]{2, 1, 0, 0}, new BuilderAssistantV1());
+        super(new int[]{5, 4, 0, 4}, new BuilderAssistantV1());
     }
 
     @Override
@@ -54,11 +54,11 @@ public class GraphTest extends GraphBuilder {
                 v[2] = v[2] + 1;
                 builderAssistant.addNewStateToGraph(workingState, v, intensive);
             }
-            if ((vec[2] > 0) && (vec[3] < KR)){
+            if ((vec[2] > 0) && (vec[3] > 0)){
                 intensive = TRap;
                 v = vec.clone();
                 v[2] = v[2] - 1;
-                v[3] = v[3] + 1;
+                v[3] = v[3] - 1;
                 v[1] = v[1] + 1;
                 builderAssistant.addNewStateToGraph(workingState, v, intensive);
             }

@@ -2,8 +2,10 @@ import util.compile.Compiler;
 import util.graph.State;
 import util.compile.impl.CompilerImplV1;
 import util.graph.builder.GraphBuilder;
+import util.graph.builder.test.GraphTest;
 import util.io.ConfigReader;
 import util.parser.impl.GraphBuilderParserImplV1;
+import util.rkm.RKM;
 
 import java.util.List;
 
@@ -18,11 +20,16 @@ public class MainTest {
         System.out.println(classDeclare);
         Compiler compiler = new CompilerImplV1(new GraphBuilderParserImplV1());
         GraphBuilder graphBuilder = compiler.getBuilder(CLASS_NAME,conf);
+        //GraphTest graphTest = new GraphTest();
         List<State> graph = graphBuilder.getWholeGraph();
 
 
         System.out.println(graph);
-        System.out.println(graphBuilder.getClass());
+        RKM rkm = new RKM(graph);
+        rkm.calculateRCM();
+
+
+        //System.out.println(graphBuilder.getClass());
     }
     //TODO  R-K-method  Рунге-Кутти-Мерсона (Адаптивним кроком) (RKM in Assembler ASNA)
     //TODO  ГРАФІК!!

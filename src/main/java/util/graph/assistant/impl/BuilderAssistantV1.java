@@ -10,11 +10,7 @@ public class BuilderAssistantV1 implements BuilderAssistant {
     @Override
     public void addNewStateToGraph(State currentState, int[] vector, double intensive) {
         State potentialNewState = new State(vector);
-        if (!State.getGraph().contains(potentialNewState)) {/*
-            System.out.print(currentState.getVector()[0] + " ,");
-            System.out.print(currentState.getVector()[1] + " ,");
-            System.out.print(currentState.getVector()[2] + " ,");
-            System.out.print(currentState.getVector()[3] + "\n");*/
+        if (!State.getGraph().contains(potentialNewState)) {
             State.getGraph().add(potentialNewState);
         }
         changeIntensive(State.getGraph().indexOf(currentState), currentState, intensive, NEGATIVE);
@@ -24,10 +20,9 @@ public class BuilderAssistantV1 implements BuilderAssistant {
     private void changeIntensive(int indexOfState, State state, double intensive, int sight) {
         intensive = intensive * sight;
         if (state.getIntensity().containsKey(indexOfState)) {
-            double intensiveOfNextState = state.getIntensity().get(indexOfState);
-            state.getIntensity().put(indexOfState, intensiveOfNextState + intensive);
-        } else {
-            state.getIntensity().put(indexOfState, intensive);
+            intensive += state.getIntensity().get(indexOfState);
         }
+        state.getIntensity().put(indexOfState, intensive);
     }
 }
+

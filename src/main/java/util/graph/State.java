@@ -46,7 +46,7 @@ public class State {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         State state = (State) o;
-        return Arrays.equals(vector, state.vector) && Objects.equals(intensity, state.intensity);
+        return Arrays.equals(vector, state.vector);
     }
 
     @Override
