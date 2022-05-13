@@ -4,6 +4,7 @@ import util.compile.impl.CompilerImplV1;
 import util.graph.builder.GraphBuilder;
 import util.io.ConfigReader;
 import util.parser.impl.GraphBuilderParserImplV1;
+import util.rkm.Pdto;
 import util.rkm.RKM;
 
 import java.util.List;
@@ -25,14 +26,18 @@ public class MainTest {
 
         System.out.println(graph);
         RKM rkm = new RKM(graph);
-        double[] yi = rkm.calculateRCM();
+        Pdto pdto = rkm.calculateRCM();
+        double[] yi = pdto.getYi();
         double sum = 0;
-        for (int i = 0; i < yi[i]; i++) {//сума пешок хороших станів
-            if (graph.get(i).getVector()[0] >= 10){
+        int iter = 0;
+        for (int i = 0; i < yi.length; i++) {//сума пешок хороших станів
+            if (graph.get(i).getVector()[0] >= 20){
                 sum += yi[i];
+                iter++;
             }
         }
         System.out.println("сума пешок хороших станів " + sum);
+        System.out.println("кількість хороших станів " + iter);
 
         //System.out.println(graphBuilder.getClass());
     }

@@ -20,8 +20,8 @@ public class RKM {
 
     private static double t0 = 0;
     private static double T = 1;
-    private static double eps = 0.000005;
-    private static double tao_0 = 0.005;//step
+    private static double eps = 0.000000000000005;
+    private static double tao_0 = 0.00005;//step
     private static int P = 5;
     private static double[] y0i = getZeroYi();
 
@@ -52,7 +52,8 @@ public class RKM {
         rkm.calculateRCM();
     }
 
-    public double[] calculateRCM() {
+    public Pdto calculateRCM() {
+        Pdto pdto = new Pdto(new ArrayList<>(), new ArrayList<>());
         double[][] intensive = getMatrixOfIntensive(graph);// розкоментовуєш graph і воно підставить матрицю інтенсивності графу
         //закоментовуєш graph і воно підставить одну з матриць 4x4
         SIZE_OF_MATRIX = intensive.length;
@@ -80,7 +81,15 @@ public class RKM {
 
             t = t + tao;
 
-            System.out.println("Iteration = " + iter++ + " t = " + t);/*+ " y0 = " + yi[0] + " y1 = " + yi[1] + " y2 = " + yi[2] + " y3 = " + yi[3])*/
+            double sumOfGoodState = 0;
+            for (int i = 0; i < yi.length; i++) {//сума пешок хороших станів
+                if (graph.get(i).getVector()[0] >= 20){
+                    sumOfGoodState += yi[i];
+                }
+            }
+            pdto.getT().add(t);
+            pdto.getY().add(sumOfGoodState);
+            System.out.println("Iteration = " + iter++ + " t = " + t + "  sumOfGoodState = " + sumOfGoodState);
         }
         double sum = 0;
         for (int i = 0; i < yi.length; i++) {
@@ -88,7 +97,8 @@ public class RKM {
             System.out.print("y" + i + " = " + yi[i] + "; ");
         }
         System.out.println("\n\nSum = " + sum);
-        return yi;
+        pdto.setYi(yi);
+        return pdto;
     }
 
     private boolean decreaseStep(double[] ri) {
