@@ -20,7 +20,6 @@ public class MainTest {
         System.out.println(classDeclare);
         Compiler compiler = new CompilerImplV1(new GraphBuilderParserImplV1());
         GraphBuilder graphBuilder = compiler.getBuilder(CLASS_NAME,conf);
-        //GraphTest graphTest = new GraphTest();
         List<State> graph = graphBuilder.getWholeGraph();
 
 
@@ -28,20 +27,33 @@ public class MainTest {
         RKM rkm = new RKM(graph);
         Pdto pdto = rkm.calculateRCM();
         double[] yi = pdto.getYi();
-        double sum = 0;
-        int iter = 0;
-        for (int i = 0; i < yi.length; i++) {//сума пешок хороших станів
-            if (graph.get(i).getVector()[0] >= 20){
-                sum += yi[i];
-                iter++;
+        double sumGood = 0;
+        double sumBad = 0;
+        int iterGood = 0;
+        int iterBad = 0;
+        for (int i = 0; i < yi.length; i++) {
+            if (graph.get(i).getVector()[0] >= 10){
+                sumGood += yi[i];
+                iterGood++;
+            }else {
+                sumBad += yi[i];
+                iterBad++;
             }
         }
-        System.out.println("сума пешок хороших станів " + sum);
-        System.out.println("кількість хороших станів " + iter);
+        System.out.println("Ймовірність безвідмовної роботи " + sumGood);
+        System.out.println("Кількість робочих станів " + iterGood);
+        System.out.println("Ймовірність виходу з ладу " + sumBad);
+        System.out.println("Кількість станів відмови " + iterBad);
+        System.out.print("x = [" + pdto.getT().get(0));
+        for (int i = 1; i < pdto.getT().size(); i++) {
+            System.out.print("," + pdto.getT().get(i));
+        }
+        System.out.println("]");
 
-        //System.out.println(graphBuilder.getClass());
+        System.out.print("y = [" + pdto.getY().get(0));
+        for (int i = 1; i < pdto.getY().size(); i++) {
+            System.out.print("," + pdto.getY().get(i));
+        }
+        System.out.println("]");
     }
-    //TODO  R-K-method  Рунге-Кутти-Мерсона (Адаптивним кроком) (RKM in Assembler ASNA)
-    //TODO  ГРАФІК!!
-    //TODO* Побудова графу з матриці інтенсивності
 }

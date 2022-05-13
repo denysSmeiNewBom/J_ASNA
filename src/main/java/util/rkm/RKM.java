@@ -1,7 +1,5 @@
 package util.rkm;
 
-
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import util.graph.State;
 import util.rkm.addition.Addition;
 import util.rkm.addition.AdditionK1;
@@ -19,11 +17,10 @@ public class RKM {
     private static int SIZE_OF_MATRIX = 4;
 
     private static double t0 = 0;
-    private static double T = 1;
-    private static double eps = 0.000000000000005;
-    private static double tao_0 = 0.00005;//step
+    private static double T = 150;
+    private static double eps = 0.0000000005;
+    private static double tao_0 = 0.005;
     private static int P = 5;
-    private static double[] y0i = getZeroYi();
 
     private static final double ONE_SIXTH = 1.0 / 6.0;
     private static final double TWO_THIRD = 2.0 / 3.0;
@@ -36,9 +33,6 @@ public class RKM {
         this.graph = graph;
     }
 
-    public RKM() {
-    }
-
     static {
         listOfAddition.add(new AdditionK1());
         listOfAddition.add(new AdditionK2());
@@ -47,15 +41,9 @@ public class RKM {
         listOfAddition.add(new AdditionK5());
     }
 
-    public static void main(String[] args) {
-        RKM rkm = new RKM();
-        rkm.calculateRCM();
-    }
-
     public Pdto calculateRCM() {
         Pdto pdto = new Pdto(new ArrayList<>(), new ArrayList<>());
-        double[][] intensive = getMatrixOfIntensive(graph);// розкоментовуєш graph і воно підставить матрицю інтенсивності графу
-        //закоментовуєш graph і воно підставить одну з матриць 4x4
+        double[][] intensive = getMatrixOfIntensive(graph);
         SIZE_OF_MATRIX = intensive.length;
         double t = t0;
         double[] yi = getZeroYi();
@@ -63,6 +51,8 @@ public class RKM {
         double[] ri;
         double tao = tao_0;
         int iter = 0;
+        double sumOfTime = 0;
+        double sumPAndT = 0;
         while (t < T) {
             do {
                 ki = getKi(intensive, yi, ki, tao);
@@ -82,21 +72,25 @@ public class RKM {
             t = t + tao;
 
             double sumOfGoodState = 0;
-            for (int i = 0; i < yi.length; i++) {//сума пешок хороших станів
-                if (graph.get(i).getVector()[0] >= 20){
+            for (int i = 0; i < yi.length; i++) {
+                if (graph.get(i).getVector()[0] >= 10) {
                     sumOfGoodState += yi[i];
                 }
             }
+            sumOfTime += t;
+            sumPAndT += t * sumOfGoodState;
             pdto.getT().add(t);
             pdto.getY().add(sumOfGoodState);
-            System.out.println("Iteration = " + iter++ + " t = " + t + "  sumOfGoodState = " + sumOfGoodState);
+            System.out.println("iteration = " + iter++ + " t = " + t + "  sumOfGoodState = " + sumOfGoodState);
         }
+        System.out.println();
         double sum = 0;
         for (int i = 0; i < yi.length; i++) {
             sum += yi[i];
             System.out.print("y" + i + " = " + yi[i] + "; ");
         }
-        System.out.println("\n\nSum = " + sum);
+        System.out.println("\n\nСередній час роботи = " + sumPAndT / sumOfTime);
+        System.out.println("Сума всіх ймовірностей стану = " + sum);
         pdto.setYi(yi);
         return pdto;
     }
@@ -125,10 +119,6 @@ public class RKM {
         }
         double[] yi = new double[SIZE_OF_MATRIX];
         yi[0] = 1;
-        for (int i = 1; i < SIZE_OF_MATRIX; i++) {
-            //yi[i] = 0.000000000000001;// тут я для всі y від 1-го до n-го (за виключенням 0-го) присвоюю їм це числдл
-            // Бо там получаються нулі і значення всіх y окрім 0-го рівні 0
-        }
         return yi;
     }
 
@@ -162,59 +152,14 @@ public class RKM {
     }
 
     private double getFValueForI(int i, double[][] coefficient, double[][] ki, double[] yi, Addition addition, double tao) {
-
-        double y = yi[0];
-        double add = addition.getAddition(0, ki);
-        double coef = coefficient[i][0];
-        double sum = (y + add) * coef;
+        double sum = (yi[0] + addition.getAddition(0, ki)) * coefficient[i][0];
         for (int j = 1; j < yi.length; j++) {
-            y = yi[j];
-            add = addition.getAddition(j, ki);
-            coef = coefficient[i][j];
-            sum += (y + add) * coef;
+            sum += (yi[j] + addition.getAddition(j, ki)) * coefficient[i][j];
         }
         return sum * tao;
     }
 
-    private static final double l01 = 1;
-    private static final double l02 = 2;
-    private static final double l10 = 2;
-    private static final double l13 = 2;
-    private static final double l20 = 3;
-    private static final double l23 = 1;
-    private static final double l31 = 3;
-    private static final double l32 = 2;
-
-    /*public static double[][] getMatrixOfIntensive() {//матриця 4 на 4 для якої все працює. розкоме цю закоментуй нижню
-        double[][] matrixOfIntensive = new double[SIZE_OF_MATRIX][SIZE_OF_MATRIX];
-        matrixOfIntensive[0][0] = -(l01 + l02);
-        matrixOfIntensive[0][1] = l10;
-        matrixOfIntensive[0][2] = l20;
-        matrixOfIntensive[1][0] = l01;
-        matrixOfIntensive[1][1] = -(l10 + l13);
-        matrixOfIntensive[1][3] = l31;
-        matrixOfIntensive[2][0] = l02;
-        matrixOfIntensive[2][2] = -(l20 + l23);
-        matrixOfIntensive[2][3] = l32;
-        matrixOfIntensive[3][1] = l13;
-        matrixOfIntensive[3][2] = l23;
-        matrixOfIntensive[3][3] = -(l31 + l32);
-        return matrixOfIntensive;
-    }*/
-
-    public static double[][] getMatrixOfIntensive() {//матриця 4 на 4 вибрана з графу.  розкоме цю закоментуй верхню
-        double[][] matrixOfIntensive = new double[SIZE_OF_MATRIX][SIZE_OF_MATRIX];
-        matrixOfIntensive[0][0] = (2.1);
-        matrixOfIntensive[0][1] = -2.1;
-        matrixOfIntensive[1][1] = 2.42333333;
-        matrixOfIntensive[1][2] = -2.09;
-        matrixOfIntensive[1][1] = -(0.33333333);
-        matrixOfIntensive[2][2] = 2.7466666666;;
-        matrixOfIntensive[3][3] = (2.1);
-        return matrixOfIntensive;
-    }
-
-    public static double[][] getMatrixOfIntensive(List<State> graph) {// підставити матрицю інтенсивності з графу. Передай в параметри граф
+    public static double[][] getMatrixOfIntensive(List<State> graph) {
         double[][] matrixOfIntensive = new double[graph.size()][graph.size()];
         for (int i = 0; i < graph.size(); i++) {
             State currentState = graph.get(i);

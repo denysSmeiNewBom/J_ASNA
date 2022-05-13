@@ -13,8 +13,8 @@ public class BuilderAssistantV1 implements BuilderAssistant {
         if (!State.getGraph().contains(potentialNewState)) {
             State.getGraph().add(potentialNewState);
         }
-        changeIntensive(State.getGraph().indexOf(currentState), currentState, intensive, NEGATIVE);
-        changeIntensive(State.getGraph().indexOf(potentialNewState), currentState, intensive, POSITIVE);
+        changeIntensive(State.getGraph().indexOf(currentState), currentState, intensive, POSITIVE);
+        changeIntensive(State.getGraph().indexOf(potentialNewState), currentState, intensive, NEGATIVE);
     }
 
     private void changeIntensive(int indexOfState, State state, double intensive, int sight) {
