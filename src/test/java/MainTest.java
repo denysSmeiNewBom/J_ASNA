@@ -1,3 +1,4 @@
+import util.chart.ChartBuilder;
 import util.compile.Compiler;
 import util.graph.State;
 import util.compile.impl.CompilerImplV1;
@@ -55,5 +56,9 @@ public class MainTest {
             System.out.print("," + pdto.getY().get(i));
         }
         System.out.println("]");
+        ChartBuilder.buildChart(pdto.getT(),pdto.getY());
     }
+    //TODO UI
+    //TODO Мультипоточка в RKM. З основним обрахуноком для tao, паралельно має обчислюватись для tao/2 i tao*2; Це має
+    // скоротити кількість кроків
 }

@@ -18,7 +18,7 @@ public class RKM {
 
     private static double t0 = 0;
     private static double T = 150;
-    private static double eps = 0.0000000005;
+    private static double eps = 0.0000005;
     private static double tao_0 = 0.005;
     private static int P = 5;
 
@@ -50,9 +50,9 @@ public class RKM {
         double[][] ki = new double[P][SIZE_OF_MATRIX];
         double[] ri;
         double tao = tao_0;
-        int iter = 0;
         double sumOfTime = 0;
         double sumPAndT = 0;
+        int iter = 0;
         while (t < T) {
             do {
                 ki = getKi(intensive, yi, ki, tao);
@@ -105,8 +105,9 @@ public class RKM {
     }
 
     private boolean increaseStep(double[] ri) {
+        double oneThirdOfEps = eps / 30;
         for (int i = 0; i < ri.length; i++) {
-            if (Math.abs(ri[i]) < (eps / 30)) {
+            if (Math.abs(ri[i]) < (oneThirdOfEps)) {
                 return true;
             }
         }
