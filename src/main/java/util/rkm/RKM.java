@@ -56,20 +56,19 @@ public class RKM {
         while (t < T) {
             do {
                 ki = getKi(intensive, yi, ki, tao);
-                ri = calculateR1(ki);
-
+                ri = calculateRi(ki);
                 if (decreaseStep(ri)) {
-                    tao /= 2;
+                    tao /= 2.0;
                     continue;
                 }
                 break;
             } while (true);
             if (increaseStep(ri)) {
-                tao = tao * 2.0;
+                tao *= 2.0;
             }
             assignNewY1(ki, yi);
 
-            t = t + tao;
+            t += tao;
 
             double sumOfGoodState = 0;
             for (int i = 0; i < yi.length; i++) {
@@ -78,7 +77,7 @@ public class RKM {
                 }
             }
             sumOfTime += t;
-            sumPAndT += t * sumOfGoodState;
+            sumPAndT += (t * sumOfGoodState);
             pdto.getT().add(t);
             pdto.getY().add(sumOfGoodState);
             System.out.println("iteration = " + iter++ + " t = " + t + "  sumOfGoodState = " + sumOfGoodState);
@@ -105,7 +104,7 @@ public class RKM {
     }
 
     private boolean increaseStep(double[] ri) {
-        double oneThirdOfEps = eps / 30;
+        double oneThirdOfEps = eps / 32;
         for (int i = 0; i < ri.length; i++) {
             if (Math.abs(ri[i]) < (oneThirdOfEps)) {
                 return true;
@@ -123,7 +122,7 @@ public class RKM {
         return yi;
     }
 
-    private double[] calculateR1(double ki[][]) {
+    private double[] calculateRi(double ki[][]) {
         if (ki == null) return null;
         double[] ri = new double[ki[0].length];
         for (int i = 0; i < ki[0].length; i++) {
