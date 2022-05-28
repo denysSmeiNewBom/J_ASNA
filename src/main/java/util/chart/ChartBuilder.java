@@ -15,16 +15,16 @@ public class ChartBuilder extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Line Chart Sample");
+        stage.setTitle("Графік");
         //defining the axes
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         //xAxis.setLabel("Number of Month");
         final LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-        lineChart.setTitle("Stock Monitoring, 2010");
+        lineChart.setTitle("Графік надійності");
         XYChart.Series series = new XYChart.Series();
-        series.setName("My portfolio");
+        series.setName("P(T)");
         //populating the series with data
         for (int i = 0; i < arrX.length; i++) {
             series.getData().add(new XYChart.Data(arrX[i], arrY[i]));

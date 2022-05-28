@@ -18,7 +18,7 @@ public class RKM {
 
     private static double t0 = 0;
     private static double T = 150;
-    private static double eps = 1;
+    private static double eps = 0.5;
     private static double tao_0 = 0.1;
     private static int P = 5;
 
@@ -56,20 +56,20 @@ public class RKM {
         while (t < T) {
             do {
                 ki = getKi(intensive, yi, ki, tao);
-                ri = calculateR1(ki);
+                ri = calculateRi(ki);
 
-                if (decreaseStep(ri,yi)) {
-                    tao /= 2;
+                if (decreaseStep(ri, yi)) {
+                    tao /= 2.0;
                     continue;
                 }
                 break;
             } while (true);
-            if (increaseStep(ri,yi)) {
-                tao = tao * 2.0;
+            if (increaseStep(ri, yi)) {
+                tao *= 2.0;
             }
             assignNewY1(ki, yi);
 
-            t = t + tao;
+            t += tao;
 
             double sumOfGoodState = 0;
             for (int i = 0; i < yi.length; i++) {
@@ -95,19 +95,19 @@ public class RKM {
         return pdto;
     }
 
-    private boolean decreaseStep(double[] ri,double[] yi) {
+    private boolean decreaseStep(double[] ri, double[] yi) {
         for (int i = 0; i < ri.length; i++) {
-            if (Math.abs(ri[i]) > eps * Math.abs(yi[i])) {
+            if (ri[i] > eps * Math.abs(yi[i])) {//abs of ri is done in calculateRi()
                 return true;
             }
         }
         return false;
     }
 
-    private boolean increaseStep(double[] ri,double[] yi) {
+    private boolean increaseStep(double[] ri, double[] yi) {
         double oneThirdOfEps = eps / 32;
         for (int i = 0; i < ri.length; i++) {
-            if (Math.abs(ri[i]) < (oneThirdOfEps * Math.abs(yi[i]))) {
+            if (ri[i] < (oneThirdOfEps * Math.abs(yi[i]))) {//abs of ri is done in calculateRi()
                 return true;
             }
         }
@@ -123,11 +123,11 @@ public class RKM {
         return yi;
     }
 
-    private double[] calculateR1(double ki[][]) {
+    private double[] calculateRi(double ki[][]) {
         if (ki == null) return null;
         double[] ri = new double[ki[0].length];
         for (int i = 0; i < ki[0].length; i++) {
-            ri[i] = ((2.0 * ki[0][i]) - (9.0 * ki[2][i]) + (8.0 * ki[3][i]) - ki[4][i]) / 30.0;
+            ri[i] = Math.abs((2.0 * ki[0][i]) - (9.0 * ki[2][i]) + (8.0 * ki[3][i]) - ki[4][i]) / 30.0;
         }
         return ri;
     }
