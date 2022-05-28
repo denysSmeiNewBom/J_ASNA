@@ -18,8 +18,8 @@ public class RKM {
 
     private static double t0 = 0;
     private static double T = 150;
-    private static double eps = 0.0000005;
-    private static double tao_0 = 0.005;
+    private static double eps = 0.05;
+    private static double tao_0 = 0.0005;
     private static int P = 5;
 
     private static final double ONE_SIXTH = 1.0 / 6.0;
