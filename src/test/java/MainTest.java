@@ -22,7 +22,7 @@ public class MainTest {
         Compiler compiler = new CompilerImplV1(new GraphBuilderParserImplV1());
         GraphBuilder graphBuilder = compiler.getBuilder(CLASS_NAME,conf);
         List<State> graph = graphBuilder.getWholeGraph();
-        System.out.println(graph.size());
+        System.out.println("Size of graph: " + graph.size());
         System.out.println(graph);
         RKM rkm = new RKM(graph);
         Pdto pdto = rkm.calculateRCM();
