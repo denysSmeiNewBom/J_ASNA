@@ -1,3 +1,5 @@
+package gui;
+
 import util.chart.ChartBuilder;
 import util.compile.Compiler;
 import util.graph.State;
@@ -11,11 +13,11 @@ import util.rkm.RKM;
 import java.util.List;
 
 
-public class MainTest {
+public class Performer {
     private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
     private static final String CLASS_NAME = "GraphTestDebug";
 
-    public static void main(String[] args) {
+    public static void execute(){
         String conf = ConfigReader.readFile(CONFIGURATION_PATH);
         String classDeclare = new GraphBuilderParserImplV1().getExtendedClass(CLASS_NAME, conf);
         System.out.println(classDeclare);
@@ -57,7 +59,4 @@ public class MainTest {
         System.out.println("]");
         ChartBuilder.buildChart(pdto.getT(),pdto.getY());
     }
-    //TODO UI
-    //TODO Мультипоточка в RKM. З основним обрахуноком для tao, паралельно має обчислюватись для tao/2 i tao*2; Це має
-    // скоротити кількість кроків
 }
