@@ -1,4 +1,4 @@
-package gui.providers.constants;
+package gui.providers.vector;
 
 import gui.MyFrame;
 

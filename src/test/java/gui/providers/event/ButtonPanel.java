@@ -1,4 +1,4 @@
-package gui.providers.constants;
+package gui.providers.event;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 
 public class ButtonPanel {
     public static JPanel getButtonPanel(DefaultTableModel model, JTextField text1,
-                                      JTextField text2, JTextField text3) {
+                                      JTextField text2, JTextField text3, JTextField text4,
+                                        JTextField text5, JTextField text6) {
         JButton addButton = new JButton("+ Add");
         //Clear button
         JButton clearButton = new JButton("Clear");
@@ -22,18 +23,23 @@ public class ButtonPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Add form data
-                String t1 = text1.getText();
-                String t2 = text2.getText();
-                String t3 = text3.getText();
                 model.addRow(
                         new Object[]{
-                            t1,t2,t3
+                                text1.getText(),
+                                text2.getText(),
+                                text3.getText(),
+                                text4.getText(),
+                                text5.getText(),
+                                text6.getText()
                         }
 
                 );
                 text1.setText("");
                 text2.setText("");
                 text3.setText("");
+                text4.setText("");
+                text5.setText("");
+                text6.setText("");
             }
         });
 
@@ -45,6 +51,9 @@ public class ButtonPanel {
                 text1.setText("");
                 text2.setText("");
                 text3.setText("");
+                text4.setText("");
+                text5.setText("");
+                text6.setText("");
             }
         });
         return buttonPanel;

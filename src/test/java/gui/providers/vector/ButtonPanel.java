@@ -1,4 +1,4 @@
-package gui.providers.constants;
+package gui.providers.vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,12 +22,11 @@ public class ButtonPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Add form data
-                String t1 = text1.getText();
-                String t2 = text2.getText();
-                String t3 = text3.getText();
                 model.addRow(
                         new Object[]{
-                            t1,t2,t3
+                                text1.getText(),
+                                text2.getText(),
+                                text3.getText()
                         }
 
                 );
