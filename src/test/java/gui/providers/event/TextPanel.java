@@ -5,16 +5,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class TextPanel {
-    public static JPanel getButtonPanel(DefaultTableModel model, JTextField text1,
-                                        JTextField text2, JTextField text3, JTextField text4,
-                                        JTextField text5, JTextField text6) {
+    public static JPanel getTextPanel(DefaultTableModel model, JTextField text1,
+                                      JTextField text2, JTextField text3, JTextField text4,
+                                      JTextField text5, JTextField text6) {
         JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        text1 = new JTextField(7);
-        text2 = new JTextField(7);
-        text3 = new JTextField(7);
-        text4 = new JTextField(7);
-        text5 = new JTextField(7);
-        text6 = new JTextField(7);
         //Add JTextFields to the panel
         textPanel.add(text1, BorderLayout.CENTER);
         textPanel.add(text2, BorderLayout.CENTER);

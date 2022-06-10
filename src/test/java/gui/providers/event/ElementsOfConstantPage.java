@@ -1,7 +1,5 @@
 package gui.providers.event;
 
-import gui.MyFrame;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -18,9 +16,9 @@ public class ElementsOfConstantPage {
         JComponent jComponent = new JPanel();
         model = new DefaultTableModel(columns, 0);
         table = new JTable(model);
-        JPanel buttonPanel = ButtonPanel.getButtonPanel(model, text1, text2, text3, text4, text5, text6);
+        JPanel textPanel = TextPanel.getTextPanel(model, text1, text2, text3, text4, text5, text6);
 
-        JPanel textPanel = TextPanel.getButtonPanel(model, text1, text2, text3, text4, text5, text6);
+        JPanel buttonPanel = ButtonPanel.getButtonPanel(model, text1, text2, text3, text4, text5, text6);
 
         //Add panels and table to the main panel
         jComponent.add(textPanel, BorderLayout.NORTH);

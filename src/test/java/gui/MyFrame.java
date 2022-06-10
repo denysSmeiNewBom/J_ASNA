@@ -14,13 +14,17 @@ import java.util.ArrayList;
 
 public class MyFrame extends JFrame implements ActionListener {
     JMenuBar menuBar;
-    private JTextField constantText1 = new JTextField(), constantText2 = new JTextField(), constantText3 = new JTextField();
-    private JTextField vectorText1, vectorText2, vectorText3;
-    private JTextField eventText1, eventText2, eventText3, eventText4, eventText5, eventText6;
-    private DefaultTableModel constantModel = new DefaultTableModel();
+    private static JTextField constantText1 = new JTextField(14),
+            constantText2 = new JTextField(14), constantText3 = new JTextField(14);
+    private static JTextField vectorText1 = new JTextField(14), vectorText2 = new JTextField(14),
+            vectorText3 = new JTextField(14);
+    private JTextField eventText1 = new JTextField(7), eventText2 = new JTextField(7),
+            eventText3 = new JTextField(7), eventText4 = new JTextField(7),
+            eventText5 = new JTextField(7), eventText6 = new JTextField(7);
+    private DefaultTableModel constantModel;
     private DefaultTableModel vectorModel;
     private DefaultTableModel eventModel;
-    private JTable constantTable = new JTable();
+    private JTable constantTable;
     private JTable vectorTable;
     private JTable eventTable;
     private JTabbedPane tablePanel;
