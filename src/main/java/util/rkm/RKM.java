@@ -17,7 +17,7 @@ public class RKM {
     private static int SIZE_OF_MATRIX = 4;
 
     private static double t0 = 0;
-    private static double T = 1;
+    private static double T = 130;
     private static double eps = 0.05;
     private static double tao_0 = 0.0005;
     private static int P = 5;
@@ -72,7 +72,7 @@ public class RKM {
 
             double sumOfGoodState = 0;
             for (int i = 0; i < yi.length; i++) {
-                if (graph.get(i).getVector()[0] >= 10) {
+                if (graph.get(i).getVector()[0] >= 20) {
                     sumOfGoodState += yi[i];
                 }
             }
