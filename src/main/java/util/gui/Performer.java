@@ -34,7 +34,7 @@ public class Performer {
         int iterGood = 0;
         int iterBad = 0;
         for (int i = 0; i < yi.length; i++) {
-            if (graph.get(i).getVector()[0] >= 20){
+            if (graph.get(i).getVector()[0] >= RKM.WORKING_STATES){
                 sumGood += yi[i];
                 iterGood++;
             }else {
@@ -42,10 +42,11 @@ public class Performer {
                 iterBad++;
             }
         }
-        System.out.println("Ймовірність безвідмовної роботи " + sumGood);
-        System.out.println("Кількість робочих станів " + iterGood);
-        System.out.println("Ймовірність виходу з ладу " + sumBad);
-        System.out.println("Кількість станів відмови " + iterBad);
+        System.out.println("Значення функції готовності: " + Math.abs(sumGood));
+        System.out.println("Кількість працездатних станів: " + iterGood);
+        System.out.println("Ймовірність виходу з ладу системи:" + sumBad);
+        System.out.println("Кількість непрацездатних станів: " + iterBad);
+        System.out.println("Закальна кількість станів: " + graph.size());
         System.out.print("x = [" + pdto.getT().get(0));
         for (int i = 1; i < pdto.getT().size(); i++) {
             System.out.print("," + pdto.getT().get(i));

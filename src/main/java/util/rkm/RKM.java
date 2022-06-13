@@ -21,6 +21,7 @@ public class RKM {
     private static double eps = 0.05;
     private static double tao_0 = 0.0005;
     private static int P = 5;
+    public static int WORKING_STATES = 20;
 
     private static final double ONE_SIXTH = 1.0 / 6.0;
     private static final double TWO_THIRD = 2.0 / 3.0;
@@ -72,24 +73,29 @@ public class RKM {
 
             double sumOfGoodState = 0;
             for (int i = 0; i < yi.length; i++) {
-                if (graph.get(i).getVector()[0] >= 20) {
+                if (graph.get(i).getVector()[0] >= WORKING_STATES) {
                     sumOfGoodState += yi[i];
                 }
             }
-            sumOfTime += t;
+            sumOfTime++;
             sumPAndT += (t * sumOfGoodState);
             pdto.getT().add(t);
             pdto.getY().add(sumOfGoodState);
-            System.out.println("iteration = " + iter++ + " t = " + t + "  sumOfGoodState = " + sumOfGoodState);
+            System.out.println("Номер ітерації: " + iter++ + " t = " + t + "; Значення функції готовності: " + Math.abs(sumOfGoodState));
         }
         System.out.println();
         double sum = 0;
+        //double sumGood = 0;
         for (int i = 0; i < yi.length; i++) {
             sum += yi[i];
+            /*if (graph.get(i).getVector()[0] >= WORKING_STATES) {
+                sumGood = yi[i];
+            }*/
             System.out.print("y" + i + " = " + yi[i] + "; ");
         }
-        System.out.println("\n\nСередній час роботи = " + sumPAndT / sumOfTime);
-        System.out.println("Сума всіх ймовірностей стану = " + sum);
+
+        //System.out.println("\n\nСередній час роботи = " + sumPAndT/sumGood);
+        System.out.println("Сума ймовірностей для всіх станів системи: " + sum);
         pdto.setYi(yi);
         return pdto;
     }
