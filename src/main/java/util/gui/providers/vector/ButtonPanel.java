@@ -1,5 +1,8 @@
 package util.gui.providers.vector;
 
+import util.gui.providers.DTO.TableDTO;
+import util.gui.providers.DTO.VectorDTO;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -7,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class ButtonPanel {
     public static JPanel getButtonPanel(DefaultTableModel model, JTextField text1,
-                                      JTextField text2, JTextField text3) {
+                                      JTextField text2, JTextField text3, TableDTO tableDTO) {
         JButton addButton = new JButton("+ Add");
         //Clear button
         JButton clearButton = new JButton("Clear");
@@ -30,6 +33,7 @@ public class ButtonPanel {
                         }
 
                 );
+                tableDTO.getVectors().add(new VectorDTO(text1.getText(),text2.getText(),text3.getText()));
                 text1.setText("");
                 text2.setText("");
                 text3.setText("");

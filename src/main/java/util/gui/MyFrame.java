@@ -1,5 +1,6 @@
 package util.gui;
 
+import util.gui.providers.DTO.TableDTO;
 import util.gui.providers.constants.ElementsOfConstantPage;
 
 import javax.swing.*;
@@ -24,21 +25,22 @@ public class MyFrame extends JFrame implements ActionListener {
     private JTable vectorTable;
     private JTable eventTable;
     private JTabbedPane tablePanel;
+    private TableDTO tableDTO;
 
-    public MyFrame() throws HeadlessException {
+    public  MyFrame(TableDTO tableDTO) throws HeadlessException {
         //ElementsOfConstantPage.addElementOfConstantPage(this,model,text1,text2,text3,table);
 
-
+        this.tableDTO = tableDTO;
         tablePanel = new JTabbedPane();
         JComponent constantComp = ElementsOfConstantPage
-                .addElementOfConstantPage(constantModel, constantText1, constantText2, constantText3, constantTable);
+                .addElementOfConstantPage(constantModel, constantText1, constantText2, constantText3, constantTable, tableDTO);
         tablePanel.addTab("Constants and value", null, constantComp, "More text1");
         JComponent vectorComponent = util.gui.providers.vector.ElementsOfConstantPage
-                .addElementOfConstantPage(vectorModel, vectorText1, vectorText2, vectorText3, vectorTable);
+                .addElementOfConstantPage(vectorModel, vectorText1, vectorText2, vectorText3, vectorTable,tableDTO);
         tablePanel.addTab("Vectors and refuse expressions", null, vectorComponent, "More text2");
         JComponent eventComponent = util.gui.providers.event.ElementsOfConstantPage
                 .addElementOfConstantPage(eventModel, eventText1, eventText2, eventText3,
-                        eventText4, eventText5, eventText6, eventTable);
+                        eventText4, eventText5, eventText6, eventTable,tableDTO);
         tablePanel.addTab("Event tree", null, eventComponent, "More text3");
         //tabbedPane.setLayout();
         getContentPane().add(tablePanel);
@@ -47,7 +49,7 @@ public class MyFrame extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600);
 
-        menuBar = util.gui.providers.MenuBar.getMenuBar();
+        menuBar = util.gui.providers.MenuBar.getMenuBar(tableDTO);
         this.setJMenuBar(menuBar);
         //this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setVisible(true);

@@ -2,11 +2,18 @@ package util.gui.providers;
 
 
 import util.gui.Performer;
+import util.gui.providers.DTO.TableDTO;
+import util.io.ConfigReader;
+import util.parser.IParseUiDtoToConfig;
+import util.parser.impl.ParserUiDtoToConfigJavaStyle;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuBar {
+    private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
+    static IParseUiDtoToConfig toConfig;
     static JMenuBar menuBar;
     static JMenu project;
     static JMenu output;
@@ -19,8 +26,14 @@ public class MenuBar {
     static JMenuItem buildGraph;
     static JMenuItem export;
     static JMenuItem manual;
+    static TableDTO tableDTO;
 
-    public static JMenuBar getMenuBar(){
+    private MenuBar() {
+    }
+
+    public static JMenuBar getMenuBar(TableDTO tableDTO){
+        MenuBar.tableDTO = tableDTO;
+        toConfig = new ParserUiDtoToConfigJavaStyle();
         menuBar = new JMenuBar();
 
         project = new JMenu("Project");
@@ -54,7 +67,11 @@ public class MenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Executing started");
-                Performer.execute();
+                if (!tableDTO.isEmpty()){
+                    Performer.execute(toConfig.parseDtoToConfig(tableDTO));
+                } else {
+                    Performer.execute(ConfigReader.readFile(CONFIGURATION_PATH));
+                }
             }
         });
         buildGraph = new JMenuItem("Build Graph");

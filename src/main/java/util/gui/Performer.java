@@ -5,7 +5,6 @@ import util.compile.Compiler;
 import util.compile.impl.CompilerImplV1;
 import util.graph.State;
 import util.graph.builder.GraphBuilder;
-import util.io.ConfigReader;
 import util.parser.impl.GraphBuilderParserImplV1;
 import util.rkm.Pdto;
 import util.rkm.RKM;
@@ -14,11 +13,11 @@ import java.util.List;
 
 
 public class Performer {
-    private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
+    //private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
     private static final String CLASS_NAME = "GraphTestDebug";
 
-    public static void execute(){
-        String conf = ConfigReader.readFile(CONFIGURATION_PATH);
+    public static void execute(String conf){
+        //String conf = ConfigReader.readFile(CONFIGURATION_PATH);
         String classDeclare = new GraphBuilderParserImplV1().getExtendedClass(CLASS_NAME, conf);
         System.out.println(classDeclare);
         Compiler compiler = new CompilerImplV1(new GraphBuilderParserImplV1());
