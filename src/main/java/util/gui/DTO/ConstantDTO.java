@@ -1,4 +1,4 @@
-package util.gui.providers.DTO;
+package util.gui.DTO;
 
 public class ConstantDTO {
     private String name;

@@ -1,9 +1,9 @@
 package util.parser.impl;
 
-import util.gui.providers.DTO.ConstantDTO;
-import util.gui.providers.DTO.EventDTO;
-import util.gui.providers.DTO.TableDTO;
-import util.gui.providers.DTO.VectorDTO;
+import util.gui.DTO.ConstantDTO;
+import util.gui.DTO.EventDTO;
+import util.gui.DTO.TableDTO;
+import util.gui.DTO.VectorDTO;
 import util.parser.IParseUiDtoToConfig;
 
 import java.util.List;

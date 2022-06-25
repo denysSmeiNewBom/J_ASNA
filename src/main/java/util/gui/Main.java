@@ -1,6 +1,6 @@
 package util.gui;
 
-import util.gui.providers.DTO.TableDTO;
+import util.gui.DTO.TableDTO;
 
 public class Main {
     public static void main(String[] args) {

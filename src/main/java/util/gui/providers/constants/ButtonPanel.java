@@ -1,7 +1,7 @@
 package util.gui.providers.constants;
 
-import util.gui.providers.DTO.ConstantDTO;
-import util.gui.providers.DTO.TableDTO;
+import util.gui.DTO.ConstantDTO;
+import util.gui.DTO.TableDTO;
 import util.gui.validator.in.table.ITableValidator;
 
 import javax.swing.*;

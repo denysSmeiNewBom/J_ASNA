@@ -2,7 +2,7 @@ package util.gui.providers;
 
 
 import util.gui.Performer;
-import util.gui.providers.DTO.TableDTO;
+import util.gui.DTO.TableDTO;
 import util.io.ConfigReader;
 import util.parser.IParseUiDtoToConfig;
 import util.parser.impl.ParserUiDtoToConfigJavaStyle;

@@ -1,7 +1,7 @@
 package util.gui.providers.event;
 
-import util.gui.providers.DTO.EventDTO;
-import util.gui.providers.DTO.TableDTO;
+import util.gui.DTO.EventDTO;
+import util.gui.DTO.TableDTO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -48,7 +48,6 @@ public class ButtonPanel {
             }
         });
 
-        // This code is called when the Clear button is clicked.
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

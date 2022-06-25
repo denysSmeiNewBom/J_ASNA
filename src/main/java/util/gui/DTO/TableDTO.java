@@ -1,4 +1,4 @@
-package util.gui.providers.DTO;
+package util.gui.DTO;
 
 import java.util.ArrayList;
 import java.util.List;

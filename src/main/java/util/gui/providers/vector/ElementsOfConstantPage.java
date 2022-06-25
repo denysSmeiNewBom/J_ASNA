@@ -1,6 +1,6 @@
 package util.gui.providers.vector;
 
-import util.gui.providers.DTO.TableDTO;
+import util.gui.DTO.TableDTO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
