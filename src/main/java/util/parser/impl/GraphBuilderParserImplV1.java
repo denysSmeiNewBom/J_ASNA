@@ -93,17 +93,24 @@ public class GraphBuilderParserImplV1 implements GraphBuilderParser {
                 condition = condition.substring(condition.indexOf(JAVA_DELIMITER) + 1);
             }
             classDeclaration.append("                builderAssistant"
-                            + ".addNewStateToGraph(workingState, v, intensive);\n"
-                            + "            }\n");
+                    + ".addNewStateToGraph(workingState, v, intensive);\n"
+                    + "            }\n");
         }
     }
 
     private static void addRefuseExpression(String conditions,
                                             StringBuilder stringBuilder) {
-        conditions = conditions.substring(conditions.indexOf(DELIMITER) + 1);
-        String conditionOfExit = conditions.substring(0,
-                conditions.indexOf(DELIMITER)).replace(V, "vec");
-        stringBuilder.append(conditionOfExit);
+        conditions = conditions.substring(0, conditions.indexOf(TREE));
+        String[] arrOfRefuseExpression = conditions.split("\n");
+        String refuseExpression;
+        for (String s : arrOfRefuseExpression) {
+            s = s.substring(s.indexOf(DELIMITER) + 1);
+            refuseExpression = s.substring(0,
+                    s.indexOf(DELIMITER)).replace(V, "vec");
+            stringBuilder.append(refuseExpression);
+            stringBuilder.append(" || ");
+        }
+        stringBuilder.append("false");
     }
 
     private static void addVector(String conditions, StringBuilder stringBuilder) {
@@ -140,5 +147,42 @@ public class GraphBuilderParserImplV1 implements GraphBuilderParser {
             stringBuilder.append(";\n");
         }
         stringBuilder.append("\n");
+    }
+
+    /*public static void main(String[] args) {
+        GraphBuilderParserImplV1 graphBuilderParserImplV1 = new GraphBuilderParserImplV1();
+        System.out.println(graphBuilderParserImplV1.getExtendedClass("Zero",
+                "_Const_=L#0.065#ймовірність відмови основного модуля#\n" +
+                        "_Const_=N#20#кількість основних елементів#\n" +
+                        "_Const_=R#20#кількість запасних елементів#\n" +
+                        "_Const_=M#0#кільскість неробочих елементів#\n" +
+                        "_Const_=Lr#0.03#ймовірність відмови робочого елемента#\n" +
+                        "_Const_=KR#15#кількість рем-наборів#\n" +
+                        "_Const_=TRap#0.9#час відновлення елемента#\n" +
+                        "_Vector_=V[0]#N#перший елем вктора#\n" +
+                        "_Vector_=V[1]#R#другий елем вктора#\n" +
+                        "_Vector_=V[2]#M#третій елем вктора#\n" +
+                        "_Vector_=V[3]#KR#четвертий елем вктора#\n" +
+                        "_RefuseExpression_=#V[0]<N##\n" +
+                        "_Tree_=Vidmova######\n" +
+                        "_Tree_=#(V[0]>0) && (V[1]==0)#V[0]*L#1#V[0]=V[0]-1;V[2]=V[2]+1;##\n" +
+                        "_Tree_=#(V[0]>0) && (V[1]>0)#V[0]*L#1#V[1]=V[1]-1;V[2]=V[2]+1;##\n" +
+                        "_Tree_=Vidnovlennja######\n" +
+                        "_Tree_=#(V[2]>0) && (V[3]>0)#V[2]*TRap#1#V[2]=V[2]-1;V[1]=V[1]+1;V[3]=V[3]-1;##\n" +
+                        "_Tree_=Vidmova rezervu######\n" +
+                        "_Tree_=#V[1]>0#V[1]*Lr#1#V[1]=V[1]-1;V[2]=V[2]+1;##\n"));
+    }*/
+
+    public static void main(String[] args) {
+        GraphBuilderParserImplV1 graphBuilderParserImplV1 = new GraphBuilderParserImplV1();
+        System.out.println(graphBuilderParserImplV1.getExtendedClass("Zero",
+                "_Const_=N#20#кількість основних модулів#\n" +
+                        "_Const_=R#10#кількість запасних модулів#\n" +
+                        "_Const_=L#0.065#ймовірність відмови основного модуля#\n" +
+                        "_Vector_=V[0]#N#перший елем вктора#\n" +
+                        "_Vector_=V[1]#R#перший елем вктора#\n" +
+                        "_RefuseExpression_=#V[0]<N##\n" +
+                        "_Tree_=#(V[0]>0) && (V[1]==0)#V[0]*L#1#V[0]=V[0]-1;V[2]=V[2]+1;##\n" +
+                        "_Tree_=#(V[0]>0) && (V[1]>0)#V[0]*L#1#V[1]=V[1]-1;V[2]=V[2]+1;##\n"));
     }
 }

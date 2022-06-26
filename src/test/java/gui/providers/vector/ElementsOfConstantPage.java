@@ -1,6 +1,4 @@
-package gui.providers.constants;
-
-import gui.MyFrame;
+package gui.providers.vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

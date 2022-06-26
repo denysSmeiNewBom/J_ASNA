@@ -22,9 +22,9 @@ public class ChartBuilder extends Application {
         //xAxis.setLabel("Number of Month");
         final LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-        lineChart.setTitle("Stock Monitoring, 2010");
+        lineChart.setTitle("Функція готовності");
         XYChart.Series series = new XYChart.Series();
-        series.setName("My portfolio");
+        series.setName("Стан");
         //populating the series with data
         for (int i = 0; i < arrX.length; i++) {
             series.getData().add(new XYChart.Data(arrX[i], arrY[i]));

@@ -1,4 +1,4 @@
-package gui.providers.constants;
+package util.gui.providers.constants;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

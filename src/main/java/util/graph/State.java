@@ -2,6 +2,7 @@ package util.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,15 @@ public class State {
 
     public Map<Integer, Double> getIntensity() {
         return intensity;
+    }
+
+    public double getIntensityInValue() {
+        Collection<Double> values = intensity.values();
+        double intensive = 0.0;
+        for (Double v : values) {
+            intensive += v;
+        }
+        return intensive;
     }
 
     public void setIntensity(Map<Integer, Double> intensity) {
