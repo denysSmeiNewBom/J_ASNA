@@ -11,6 +11,12 @@ import java.awt.event.ActionListener;
 
 public class MyFrame extends JFrame implements ActionListener {
     JMenuBar menuBar;
+
+    public static final String[] columns = {
+            "Index","Vector","Intens"
+    };
+
+
     private static JTextField constantText1 = new JTextField(14),
             constantText2 = new JTextField(14), constantText3 = new JTextField(14);
     private static JTextField vectorText1 = new JTextField(14), vectorText2 = new JTextField(14),
@@ -21,10 +27,14 @@ public class MyFrame extends JFrame implements ActionListener {
     private JTextField textFieldRefuseExpression = new JTextField(30);
     private DefaultTableModel constantModel;
     private DefaultTableModel vectorModel;
+    private DefaultTableModel refuseModel;
     private DefaultTableModel eventModel;
+    private DefaultTableModel outModel = new DefaultTableModel(columns,0);
     private JTable constantTable;
     private JTable vectorTable;
     private JTable eventTable;
+    private JTable refuseTable;
+    private JTable outTable;
     private JTabbedPane tablePanel;
     private TableDTO tableDTO;
 
@@ -49,15 +59,19 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         JComponent refuseComponent = util.gui.providers.refuse.exp.ElementsOfConstantPage
-                .addElementOfConstantPage(eventModel,textFieldRefuseExpression,tableDTO);
-        tablePanel.addTab("Refuse Expresion", null,refuseComponent,"Press to enter refuse Expresion");
+                .addElementOfConstantPage(refuseModel, textFieldRefuseExpression, tableDTO);
+        tablePanel.addTab("Refuse Expression", null, refuseComponent, "Press to enter refuse Expression");
+
+        JComponent outComponent = util.gui.providers.graph.ElementsOfConstantPage
+                .addElementOfConstantPage(outModel, outTable, tableDTO);
+        tablePanel.addTab("Output", null, outComponent, "Press to enter check Output");
 
         getContentPane().add(tablePanel);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600);
 
-        menuBar = util.gui.providers.MenuBar.getMenuBar(tableDTO);
+        menuBar = util.gui.providers.MenuBar.getMenuBar(tableDTO, outModel);
         this.setJMenuBar(menuBar);
         this.setVisible(true);
     }

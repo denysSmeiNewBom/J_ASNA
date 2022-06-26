@@ -1,6 +1,7 @@
 package util.gui.providers;
 
 
+import util.graph.State;
 import util.gui.Performer;
 import util.gui.DTO.TableDTO;
 import util.io.ConfigReader;
@@ -8,8 +9,10 @@ import util.parser.IParseUiDtoToConfig;
 import util.parser.impl.ParserUiDtoToConfigJavaStyle;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MenuBar {
     private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
@@ -26,13 +29,16 @@ public class MenuBar {
     static JMenuItem buildGraph;
     static JMenuItem export;
     static JMenuItem manual;
-    static TableDTO tableDTO;
+    static TableDTO tableDTO;/*
+    static DefaultTableModel outPutTableModel;*/
+    static List<State> states;
 
     private MenuBar() {
     }
 
-    public static JMenuBar getMenuBar(TableDTO tableDTO){
+    public static JMenuBar getMenuBar(TableDTO tableDTO, DefaultTableModel outPutTableModel) {
         MenuBar.tableDTO = tableDTO;
+        /*MenuBar.outPutTableModel = outPutTableModel;*/
         toConfig = new ParserUiDtoToConfigJavaStyle();
         menuBar = new JMenuBar();
 
@@ -67,11 +73,12 @@ public class MenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Executing started");
-                if (!tableDTO.isEmpty()){
-                    Performer.execute(toConfig.parseDtoToConfig(tableDTO));
+                if (!tableDTO.isEmpty()) {
+                    states = Performer.execute(toConfig.parseDtoToConfig(tableDTO));
                 } else {
-                    Performer.execute(ConfigReader.readFile(CONFIGURATION_PATH));
+                    states = Performer.execute(ConfigReader.readFile(CONFIGURATION_PATH));
                 }
+                fillOutTable(outPutTableModel);
             }
         });
         buildGraph = new JMenuItem("Build Graph");
@@ -90,5 +97,22 @@ public class MenuBar {
         menuBar.add(help);
 
         return menuBar;
+    }
+
+    private static void fillOutTable(DefaultTableModel outPutTableModel) {
+        int index = 0;
+        for (State state : states) {
+            String vector = "[";
+            for (int v : state.getVector()) {
+                vector = vector + v + ",";
+            }
+            vector = vector.substring(0, vector.length() - 1);
+            vector = vector + "]";
+            Object[] o = new Object[3];
+            o[0] = String.valueOf(index++);
+            o[1] = vector;
+            o[2] = String.valueOf(state.getIntensityInValue());
+            outPutTableModel.addRow(o);
+        }
     }
 }

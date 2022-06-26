@@ -16,7 +16,7 @@ public class Performer {
     //private static final String CONFIGURATION_PATH = "src/main/resources/config.txt";
     private static final String CLASS_NAME = "GraphTestDebug";
 
-    public static void execute(String conf){
+    public static List<State> execute(String conf){
         //String conf = ConfigReader.readFile(CONFIGURATION_PATH);
         String classDeclare = new GraphBuilderParserImplV1().getExtendedClass(CLASS_NAME, conf);
         System.out.println(classDeclare);
@@ -58,5 +58,6 @@ public class Performer {
         }
         System.out.println("]");
         ChartBuilder.buildChart(pdto.getT(),pdto.getY());
+        return graph;
     }
 }
