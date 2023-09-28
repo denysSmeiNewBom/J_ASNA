@@ -1,5 +1,6 @@
 package gui;
 
+import util.chart.SwingChartBuilder;
 import util.compile.Compiler;
 import util.graph.State;
 import util.compile.impl.CompilerImplV1;
@@ -56,6 +57,6 @@ public class Performer {
             System.out.print("," + pdto.getY().get(i));
         }
         System.out.println("]");
-        ChartBuilder.buildChart(pdto.getT(),pdto.getY());
+        SwingChartBuilder.buildChart(pdto.getT(),pdto.getY());
     }
 }

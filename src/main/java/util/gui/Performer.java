@@ -33,7 +33,7 @@ public class Performer {
         int iterGood = 0;
         int iterBad = 0;
         for (int i = 0; i < yi.length; i++) {
-            if (graph.get(i).getVector()[0] >= RKM.WORKING_STATES){
+            if (graph.get(i).getVector()[0] >= rkm.getWorkingStates()){
                 sumGood += yi[i];
                 iterGood++;
             }else {
