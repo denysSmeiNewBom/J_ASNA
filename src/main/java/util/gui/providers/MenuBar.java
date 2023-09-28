@@ -69,17 +69,14 @@ public class MenuBar {
         project.add(exit);
 
         calculate = new JMenuItem("Calculate");
-        calculate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Executing started");
-                if (!tableDTO.isEmpty()) {
-                    states = Performer.execute(toConfig.parseDtoToConfig(tableDTO));
-                } else {
-                    states = Performer.execute(ConfigReader.readFile(CONFIGURATION_PATH));
-                }
-                fillOutTable(outPutTableModel);
+        calculate.addActionListener(listener -> {
+            System.out.println("Executing started");
+            if (!tableDTO.isEmpty()) {
+                states = Performer.execute(toConfig.parseDtoToConfig(tableDTO));
+            } else {
+                states = Performer.execute(ConfigReader.readFile(CONFIGURATION_PATH));
             }
+            fillOutTable(outPutTableModel);
         });
         buildGraph = new JMenuItem("Build Graph");
         export = new JMenuItem("Export...");

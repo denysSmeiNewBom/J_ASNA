@@ -1,6 +1,5 @@
 package gui;
 
-import util.chart.ChartBuilder;
 import util.compile.Compiler;
 import util.graph.State;
 import util.compile.impl.CompilerImplV1;
